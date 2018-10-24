@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bucket</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Bucket Application</h1>
+        <p>Add items to the bucket</p>
+
+        <div class="row">
+            <form class="col s12" action="{{ url_for('add_item') }}" method="post" autocomplete="off">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input placeholder="item" id="new_item" type="text" class="validate" name="new_item" autofocus>
+                        <label for="new_item">New item</label>
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i class="material-icons right"></i>
+                </button>
+            </form>
+        </div>
+
+        <h2>Your Bucket</h2>
+
+        {% if bucket %}
+            <form action="{{ url_for('clear') }}" method="post">
+                <button class="waves-effect waves-light btn red lighten-2" type="submit">Clear bucket</button>
+            </form>
+        {% endif %}
+
+        {% if bucket %}
+            {% for item in bucket %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        {% else %}
+            Bucket is empty
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
