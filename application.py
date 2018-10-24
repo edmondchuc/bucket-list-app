@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template, request, session
 from flask_session import Session
+from random import shuffle
 
 app = Flask(__name__)
 app.secret_key = 'super secret key'
@@ -21,7 +22,7 @@ def index():
 @app.route('/', methods=['POST'])
 def login():
     session['name'] = request.form.get('name')
-    return render_template("index.html")
+    return render_template("index.html", bucket=session['bucket'])
 
 
 @app.route('/add_item', methods=['POST'])
@@ -30,6 +31,20 @@ def add_item():
     if len(item) is not 0:
         session['bucket'].append(item)
     print(session['bucket'])
+    return render_template("index.html", bucket=session['bucket'])
+
+
+@app.route('/remove_item', methods=['POST'])
+def remove_item():
+    item = request.form.get('item-to-remove')
+    if item in session['bucket']:
+        session['bucket'].remove(item)
+    return render_template("index.html", bucket=session['bucket'])
+
+
+@app.route('/shuffle', methods=['POST', 'GET'])
+def shuffle_bucket():
+    shuffle(session['bucket'])
     return render_template("index.html", bucket=session['bucket'])
 
 

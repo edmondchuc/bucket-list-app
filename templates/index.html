@@ -33,20 +33,36 @@
             </form>
         </div>
 
-        <h2>Your Bucket</h2>
+        <div>
+            <h2 style="display: inline">Your Bucket</h2>
+
+            {% if bucket %}
+                <form action="{{ url_for('clear') }}" method="post" style="float:right">
+                    <button class="waves-effect waves-light btn red lighten-2" type="submit">Clear bucket</button>
+                </form>
+                <form action="{{ url_for('shuffle_bucket') }}" method="post" style="float:right">
+                    <button class="waves-effect waves-light btn blue lighten-2" type="submit">Shuffle bucket</button>
+                </form>
+            {% endif %}
+        </div>
+
 
         {% if bucket %}
-            <form action="{{ url_for('clear') }}" method="post" style="float:right">
-                <button class="waves-effect waves-light btn red lighten-2" type="submit">Clear bucket</button>
-            </form>
-        {% endif %}
+            <ol>
+                {% for item in bucket %}
+                    <li style="height: 50px;">
+                        <form action="{{ url_for('remove_item') }}" method="post" style="margin-left: 20px; margin-right: 20px; display:inline">
+                            <input type="text" name="item-to-remove" value="{{ item }}" hidden>
+                            <button class="wwaves-effect waves-light btn red lighten-2" type="submit">X</button>
+                        </form>
 
-        {% if bucket %}
-            {% for item in bucket %}
-                <li>{{ item }}</li>
-            {% endfor %}
+                        {{ item }}
+
+                    </li>
+                {% endfor %}
+            </ol>
         {% else %}
-            Bucket is empty
+            <p>Bucket is empty</p>
         {% endif %}
 
     </div>
