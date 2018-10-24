@@ -7,6 +7,7 @@ A set of functions exist such as:
 * shuffle the bucket
 
 # TODO
+* Add client-side check to submit login only if name is not empty.
 
 
 # Installation
