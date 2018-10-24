@@ -268,3 +268,5 @@ pip-selfcheck.json
 
 
 # End of https://www.gitignore.io/api/flask,python,pycharm,visualstudiocode
+
+/flask_session

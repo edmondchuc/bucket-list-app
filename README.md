@@ -11,7 +11,7 @@ A set of functions exist such as:
 
 # Installation
 * `pip3 install flask`
-* `pip3 install itsdangerous<1.0.0`
+* `pip3 install 'itsdangerous<1.0.0'`
 * `pip3 install Flask-Session`
 
 
