@@ -13,6 +13,10 @@
 <body>
     <div class="container">
         <h1>Bucket Application</h1>
+        <form action="{{ url_for('logout') }}" method="post" style="float:right">
+            <button class="waves-effect waves-light btn purple darken-1" type="submit">Log out</button>
+        </form>
+
         <p>Add items to the bucket</p>
 
         <div class="row">
@@ -32,7 +36,7 @@
         <h2>Your Bucket</h2>
 
         {% if bucket %}
-            <form action="{{ url_for('clear') }}" method="post">
+            <form action="{{ url_for('clear') }}" method="post" style="float:right">
                 <button class="waves-effect waves-light btn red lighten-2" type="submit">Clear bucket</button>
             </form>
         {% endif %}
