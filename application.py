@@ -16,13 +16,13 @@ def index():
         session['bucket'] = []
         return render_template("login.html")
     else:
-        return render_template("index.html", bucket=session['bucket'])
+        return render_template("index.html", bucket=session['bucket'], name=session['name'])
 
 
 @app.route('/', methods=['POST'])
 def login():
     session['name'] = request.form.get('name')
-    return render_template("index.html", bucket=session['bucket'])
+    return render_template("index.html", bucket=session['bucket'], name=session['name'])
 
 
 @app.route('/add_item', methods=['POST'])
@@ -31,7 +31,7 @@ def add_item():
     if len(item) is not 0:
         session['bucket'].append(item)
     print(session['bucket'])
-    return render_template("index.html", bucket=session['bucket'])
+    return render_template("index.html", bucket=session['bucket'], name=session['name'])
 
 
 @app.route('/remove_item', methods=['POST'])
@@ -39,20 +39,20 @@ def remove_item():
     item = request.form.get('item-to-remove')
     if item in session['bucket']:
         session['bucket'].remove(item)
-    return render_template("index.html", bucket=session['bucket'])
+        return render_template("index.html", bucket=session['bucket'], name=session['name'])
 
 
 @app.route('/shuffle', methods=['POST', 'GET'])
 def shuffle_bucket():
     shuffle(session['bucket'])
-    return render_template("index.html", bucket=session['bucket'])
+    return render_template("index.html", bucket=session['bucket'], name=session['name'])
 
 
 @app.route('/clear', methods=['GET', 'POST'])
 def clear():
     if session.get('bucket') is not None:
         session['bucket'][:] = []
-    return render_template("index.html", bucket=session['bucket'])
+        return render_template("index.html", bucket=session['bucket'], name=session['name'])
 
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -65,3 +65,7 @@ def logout():
 @app.route('/<path:path>')
 def oops(path):
     return render_template('error.html', path=path)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
