@@ -5,21 +5,3 @@ A set of functions exist such as:
 * remove items to the bucket
 * randomly choose an item from the bucket
 * shuffle the bucket
-
-# TODO
-* Add client-side check to submit login only if name is not empty.
-
-
-# Installation
-* `pip3 install flask`
-* `pip3 install 'itsdangerous<1.0.0'`
-* `pip3 install Flask-Session`
-
-
-# Production
-Use https://gunicorn.org/ for deployment.
-
-
-# Contact
-Edmond Chuc  
-www.edmondchuc.com  
