@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, session
+from flask import Flask, render_template, request, session
 from flask_session import Session
 from random import shuffle
 
@@ -28,7 +28,7 @@ def login():
 @app.route('/add_item', methods=['POST'])
 def add_item():
     item = request.form.get('new_item')
-    if len(item) is not 0:
+    if len(item) != 0:
         session['bucket'].append(item)
     print(session['bucket'])
     return render_template("index.html", bucket=session['bucket'], name=session['name'])
@@ -40,6 +40,7 @@ def remove_item():
     if item in session['bucket']:
         session['bucket'].remove(item)
         return render_template("index.html", bucket=session['bucket'], name=session['name'])
+    return "You tried removing something that doesn't exist!"
 
 
 @app.route('/shuffle', methods=['POST', 'GET'])
@@ -51,7 +52,7 @@ def shuffle_bucket():
 @app.route('/clear', methods=['GET', 'POST'])
 def clear():
     if session.get('bucket') is not None:
-        session['bucket'][:] = []
+        session['bucket'].clear()
         return render_template("index.html", bucket=session['bucket'], name=session['name'])
 
 

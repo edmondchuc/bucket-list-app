@@ -1,1 +1,2 @@
-ItsDangerous==0.24
+flask
+flask-session
